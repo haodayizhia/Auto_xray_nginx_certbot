@@ -1,0 +1,40 @@
+
+{
+  "inbounds": [{
+    "port": 10086,           //端口范围0至65535，请确保和后面nginx的端口号一致
+    "listen":"127.0.0.1",
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "3d9bc66f-89c1-4011-9342-4158bf409251", //此处为安装时生成的id
+          "level": 1,
+          "alterId": 0      //此处为安装时生成的alterId
+        }
+      ]
+    },
+    "streamSettings": {
+      "network": "ws",
+      "wsSettings": {
+        "path": "/ray"   //此处为路径，需要和下面NGINX上面的路径配置一样
+      }
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  },{
+    "protocol": "blackhole",
+    "settings": {},
+    "tag": "blocked"
+  }],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}

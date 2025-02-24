@@ -1,0 +1,8 @@
+[Unit]
+Description=Certbot
+Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
+Documentation=https://certbot.eff.org/docs
+[Service]
+Type=oneshot
+ExecStart=certbot renew --pre-hook "systemctl stop nginx" --post-hook "systemctl restart nginx"
+PrivateTmp=true
